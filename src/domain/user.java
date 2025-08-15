@@ -25,4 +25,12 @@ public class user {
         return username;
     }
 
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public byte[] getSalt() {
+        return salt;
+    }
+
 }

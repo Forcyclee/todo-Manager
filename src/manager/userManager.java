@@ -10,22 +10,26 @@ import java.util.List;
 
 public class userManager {
     private List<user> users = new ArrayList<user>();
+    private user currentUser;
 
     /**
-     *
+     *  Function used to register a new user
      * @param username users username
      * @param password users password
      * @param email users email
      * @param firstName users first name
      * @param lastName users last name
      * @param birthDate users birthday
-     * @return 1 if the username is already in use, 0 if the user is created successfully
+     * @return 3 if the user is already logged in an account, 1 if the username is already in use, 0 if the user is created successfully
      * @throws Exception
      */
     public int register(String username, String password, String email, String firstName, String lastName, LocalDate birthDate) throws Exception {
+        if(currentUser != null){
+            System.out.println("Logout from current account first");
+            return 3; //user already logged in an account
+        }
         if(users.stream().anyMatch(user -> user.getUsername().equals(username))){
             return 1; //User already exists
-
         }
         passwordUtil passwordGenerator = new passwordUtil();
         byte[] salt = passwordGenerator.generateSalt();
@@ -37,6 +41,55 @@ public class userManager {
 
     }
 
+    /**
+     * Function used to log in as a user
+     * @param username users username
+     * @param password users password
+     * @return 3 if the user is already logged in an account, 2 if the username isn't on the database, 1 if the password is wrong and 0 if login successful.
+     * @throws Exception
+     */
+    public int login(String username, String password) throws Exception {
+        if(currentUser != null){
+            System.out.println("Already logged in");
+            return 3; //user already logged in an account
+        }
+
+        user tempUserVerify = users.stream()
+                .filter(user -> user.getUsername().equals(username))
+                .findFirst()
+                .orElse(null);
+
+        if (tempUserVerify == null) {
+            System.out.println("User not found");
+            return 2;
+        }
+
+        user tempUser = users.stream().filter(user -> user.getUsername().equals(username)).findFirst().get();
+
+
+        passwordUtil passwordGenerator = new passwordUtil();
+
+        boolean correctInfo = passwordGenerator.verifyPassword(password, tempUser.getPasswordHash(), tempUser.getSalt());
+        if(correctInfo){
+            System.out.println("Succesfully logged in");
+            currentUser = tempUser;
+            return 0; //Successful login
+        }
+        System.out.println("Wrong password");
+        return 1;
+
+
+    }
+    public int logout(){
+        if (currentUser != null) {
+            System.out.println("Logout successful: " + currentUser.getUsername());
+            currentUser = null;
+            return 0;
+        } else {
+            System.out.println("No user is currently logged in.");
+            return 1;
+        }
+    }
 
 
 }

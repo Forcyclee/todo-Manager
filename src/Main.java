@@ -9,6 +9,14 @@ public class Main {
         userManager teste  = new userManager();
         teste.register("Diogo", "gugugaga", "diogogomecardoso", "Diogo", "Cardoso", LocalDate.now());
         teste.register("Diogo", "gugugaga", "diogogomecardoso", "Diogo", "Cardoso", LocalDate.now());
+        teste.login("Diogo", "gugugaga");
+        teste.login("Colas", "gugugaga");
+        teste.register("Diogo", "gugugaga", "diogogomecardoso", "Diogo", "Cardoso", LocalDate.now());
+        teste.logout();
+        teste.login("Colas", "gugugaga");
+        teste.login("Diogo", "pada");
+        teste.logout();
+
 
     }
 }

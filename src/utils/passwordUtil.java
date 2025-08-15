@@ -31,4 +31,9 @@ public class passwordUtil {
         return Base64.getEncoder().encodeToString(hash);
     }
 
+    public static boolean verifyPassword(String attemptedPassword, String storedHash, byte[] storedSalt) throws Exception {
+        String attemptedHash = hashPassword(attemptedPassword, storedSalt);
+        return storedHash.equals(attemptedHash);
+    }
+
 }
