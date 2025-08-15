@@ -1,6 +1,7 @@
 package domain;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class user {
     private String username;
@@ -10,6 +11,7 @@ public class user {
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
+    private String userID;
 
     public user(String username, String passwordHash, byte[] salt, String email, String firstName, String lastName, LocalDate birthDate) {
         this.username = username;
@@ -19,6 +21,7 @@ public class user {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.userID = UUID.randomUUID().toString();
     }
 
     public String getUsername() {
@@ -31,6 +34,9 @@ public class user {
 
     public byte[] getSalt() {
         return salt;
+    }
+    public String getUserID() {
+        return userID;
     }
 
 }

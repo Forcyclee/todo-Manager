@@ -73,6 +73,7 @@ public class userManager {
         if(correctInfo){
             System.out.println("Succesfully logged in");
             currentUser = tempUser;
+            System.out.println(currentUser.getUserID());
             return 0; //Successful login
         }
         System.out.println("Wrong password");
