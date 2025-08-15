@@ -10,7 +10,6 @@ import java.util.List;
 
 public class userManager {
     private List<user> users = new ArrayList<user>();
-    private user currentUser;
 
     /**
      *  Function used to register a new user
@@ -24,7 +23,8 @@ public class userManager {
      * @throws Exception
      */
     public int register(String username, String password, String email, String firstName, String lastName, LocalDate birthDate) throws Exception {
-        if(currentUser != null){
+        sessionManager temp = sessionManager.getInstance();
+        if(temp.getCurrentUser() != null){
             System.out.println("Logout from current account first");
             return 3; //user already logged in an account
         }
@@ -49,7 +49,8 @@ public class userManager {
      * @throws Exception
      */
     public int login(String username, String password) throws Exception {
-        if(currentUser != null){
+        sessionManager temp = sessionManager.getInstance();
+        if(temp.getCurrentUser() != null){
             System.out.println("Already logged in");
             return 3; //user already logged in an account
         }
@@ -72,8 +73,7 @@ public class userManager {
         boolean correctInfo = passwordGenerator.verifyPassword(password, tempUser.getPasswordHash(), tempUser.getSalt());
         if(correctInfo){
             System.out.println("Succesfully logged in");
-            currentUser = tempUser;
-            System.out.println(currentUser.getUserID());
+            temp.login(tempUser);
             return 0; //Successful login
         }
         System.out.println("Wrong password");
@@ -82,9 +82,10 @@ public class userManager {
 
     }
     public int logout(){
-        if (currentUser != null) {
-            System.out.println("Logout successful: " + currentUser.getUsername());
-            currentUser = null;
+        sessionManager temp = sessionManager.getInstance();
+        if (temp.getCurrentUser() != null) {
+            System.out.println("Logout successful ");
+            temp.logout();
             return 0;
         } else {
             System.out.println("No user is currently logged in.");
