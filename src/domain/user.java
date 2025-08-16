@@ -22,6 +22,7 @@ public class user {
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.userID = UUID.randomUUID().toString();
+        System.out.println("UserID: " + this.userID);
     }
 
     public String getUsername() {

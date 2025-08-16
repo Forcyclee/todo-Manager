@@ -23,6 +23,7 @@ public class task {
         this.status = taskStatus.PENDING;
         this.taskID = UUID.randomUUID().toString();
         this.created = LocalDateTime.now();
+        System.out.println("TaskId: " + this.taskID);
 
     }
 
@@ -40,6 +41,14 @@ public class task {
     public void setStatus(taskStatus status) {
         this.lastUpdated = LocalDateTime.now();
         this.status = status;
+    }
+
+    public void editTask(String title, String description, taskPriority priority, LocalDateTime deadline) {
+        this.title = title;
+        this.description = description;
+        this.priority = priority;
+        this.deadline = deadline;
+        this.lastUpdated = LocalDateTime.now();
     }
 
 

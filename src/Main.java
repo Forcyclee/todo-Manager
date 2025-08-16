@@ -14,21 +14,22 @@ public class Main {
         userManager teste  = new userManager();
         taskManager testeTask = new taskManager();
         teste.register("Diogo", "gugugaga", "diogogomecardoso", "Diogo", "Cardoso", LocalDate.now());
-        teste.register("Diogo", "gugugaga", "diogogomecardoso", "Diogo", "Cardoso", LocalDate.now());
         teste.login("Diogo", "gugugaga");
-        teste.login("Colas", "gugugaga");
-        teste.register("Diogo", "gugugaga", "diogogomecardoso", "Diogo", "Cardoso", LocalDate.now());
-        teste.logout();
-        teste.login("Colas", "gugugaga");
-        teste.login("Diogo", "pada");
-        teste.logout();
         Scanner sc = new Scanner(System.in);
         String userID = sc.nextLine();
         testeTask.createTask("Reuniao", "Reuniao de condominio", taskPriority.HIGH, userID);
-        String id = sc.nextLine();
-        List<task> tasks = testeTask.getTasks(id);
+        testeTask.createTask("Reuniao 2", "Reuniao de condominio 2", taskPriority.HIGH, userID);
+        List<task> tasks = testeTask.getTasks();
         for (task task : tasks) {
             System.out.println(task.toString());
         }
+        String taskID = sc.nextLine();
+        testeTask.removeTask(taskID);
+        tasks = testeTask.getTasks();
+
+        for (task task : tasks) {
+            System.out.println(task.toString());
+        }
+
     }
 }
