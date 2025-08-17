@@ -9,7 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class userManager {
+    private static  userManager instance;
     private List<user> users = new ArrayList<user>();
+    private userManager() {}
+
+    public static userManager getInstance() {
+        if (instance == null) {
+            instance = new userManager();
+        }
+        return instance;
+    }
 
     /**
      *  Function used to register a new user
