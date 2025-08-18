@@ -116,11 +116,23 @@ public class LogInApp {
                 userManager temp = userManager.getInstance();
                 int result = temp.login(user, pass);
                 switch (result) {
-                    case 0 -> JOptionPane.showMessageDialog(frame, "Login com sucesso!");
-                    case 1 -> JOptionPane.showMessageDialog(frame, "Password errada!");
-                    case 2 -> JOptionPane.showMessageDialog(frame, "Utilizador não encontrado!");
-                    case 3 -> JOptionPane.showMessageDialog(frame, "Já existe sessão iniciada!");
-                    default -> JOptionPane.showMessageDialog(frame, "Erro inesperado!");
+                    case 0:
+                        JOptionPane.showMessageDialog(frame, "Login com sucesso!");
+                        frame.dispose();
+                        TaskManagerApp taskManagerApp = new TaskManagerApp();
+                        break;
+                    case 1:
+                        JOptionPane.showMessageDialog(frame, "Password errada!");
+                        break;
+                    case 2:
+                        JOptionPane.showMessageDialog(frame, "Utilizador não encontrado!");
+                        break;
+                    case 3:
+                        JOptionPane.showMessageDialog(frame, "Já existe sessão iniciada!");
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(frame, "Erro inesperado!");
+                        break;
                 }
 
             }catch(Exception ex){
@@ -176,6 +188,7 @@ public class LogInApp {
                         break;
                         case 7:
                             JOptionPane.showMessageDialog(frame, "You need to be 18 or older to join!");
+                            break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + result);
                 }

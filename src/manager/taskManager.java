@@ -11,7 +11,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class taskManager {
+    private static  taskManager instance;
     private List<task> tasks = new ArrayList<task>();
+
+    private taskManager() {};
+    public static taskManager getInstance() {
+        if (instance == null) {
+            instance = new taskManager();
+        }
+        return instance;
+    }
 
     /**
      * Adds a new task (currently there's no need for any verification, might change in the future)
@@ -19,13 +28,14 @@ public class taskManager {
      * @param description task description
      * @param priority task priority
      */
-    public void createTask(String title, String description, taskPriority priority, String userId) {
+    public int createTask(String title, String description, taskPriority priority) {
         sessionManager temp = sessionManager.getInstance();
         if(temp.getCurrentUser() == null){
-            throw new IllegalStateException("Log in first before attempting this.");
+            return 1;
         }
         System.out.println("Creating task " + title + " " + description + " " + priority);
-        tasks.add(new task(title, description, priority, userId));
+        tasks.add(new task(title, description, priority, temp.getCurrentUser().getUserID()));
+        return 0;
     }
 
     public List<task> getTasks() {

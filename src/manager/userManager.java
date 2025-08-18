@@ -45,7 +45,7 @@ public class userManager {
             return 6;
         }
 
-        if(Period.between(LocalDate.now(), birthDate).getYears() < 18) {
+        if(Period.between(birthDate, LocalDate.now()).getYears() < 18) {
             return 7;//User should be at least 18y/o to join
         }
 
