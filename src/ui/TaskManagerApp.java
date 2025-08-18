@@ -1,10 +1,12 @@
 package ui;
 
+import domain.task;
 import manager.sessionManager;
 import manager.taskManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class TaskManagerApp {
     public TaskManagerApp() {
@@ -52,6 +54,52 @@ public class TaskManagerApp {
         rightPanel.add(newTaskButton);
         rightPanel.add(logoutButton);
         headerPanel.add(rightPanel, BorderLayout.EAST);
+
+
+
+        JPanel taskBoard = new JPanel();
+        taskBoard.setLayout(new BoxLayout(taskBoard, BoxLayout.Y_AXIS));
+        taskBoard.setBackground(new Color(245, 245, 245));
+
+        taskManager temp = taskManager.getInstance();
+        List<task> tasks = temp.getTasks();
+
+        for (task t : tasks) {
+            JPanel card = new JPanel();
+            card.setLayout(new BorderLayout());
+            card.setPreferredSize(new Dimension(750, 80)); // FIXED height
+            card.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80)); // max width expandable
+            card.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+            card.setBackground(Color.WHITE);
+
+            JLabel taskTitle = new JLabel(t.getTitle());
+            taskTitle.setFont(new Font("Arial", Font.BOLD, 14));
+            taskTitle.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+
+            JButton editButton = new JButton("Edit");
+            editButton.addActionListener(e -> {
+                // new EditTaskApp(t);
+            });
+
+            card.add(taskTitle, BorderLayout.CENTER);
+            card.add(editButton, BorderLayout.EAST);
+
+            taskBoard.add(Box.createVerticalStrut(10));
+            taskBoard.add(card);
+        }
+
+        JScrollPane scrollPane = new JScrollPane(taskBoard);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+        frame.add(scrollPane, BorderLayout.CENTER);
+
+
+
+
+
+
 
         frame.add(headerPanel, BorderLayout.NORTH);
 
