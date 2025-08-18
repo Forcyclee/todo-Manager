@@ -165,6 +165,17 @@ public class LogInApp {
                         JOptionPane.showMessageDialog(frame, "Logout of current account first!");
 
                         break;
+                    case 4:
+                        JOptionPane.showMessageDialog(frame, "All camps are obligatory!");
+                        break;
+                    case 5:
+                        JOptionPane.showMessageDialog(frame, "Password should have at least 8 characters!");
+                        break;
+                    case 6:
+                        JOptionPane.showMessageDialog(frame, "Username should have at least 8 characters!");
+                        break;
+                        case 7:
+                            JOptionPane.showMessageDialog(frame, "You need to be 18 or older to join!");
                     default:
                         throw new IllegalStateException("Unexpected value: " + result);
                 }

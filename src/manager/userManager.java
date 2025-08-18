@@ -5,6 +5,7 @@ import utils.passwordUtil;
 
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,22 @@ public class userManager {
      * @throws Exception
      */
     public int register(String username, String password, String email, String firstName, String lastName, LocalDate birthDate) throws Exception {
+        if(username.equals("") || password.equals("") || email.equals("") || firstName.equals("") || lastName.equals("") || birthDate == null) {
+            return 4; //All camps are obligatory
+        }
+
+        if(password.length() < 8) {
+            return 5; //All passwords should have at least 8 characters.
+        }
+
+        if(username.length() < 8) {
+            return 6;
+        }
+
+        if(Period.between(LocalDate.now(), birthDate).getYears() < 18) {
+            return 7;//User should be at least 18y/o to join
+        }
+
         sessionManager temp = sessionManager.getInstance();
         if(temp.getCurrentUser() != null){
             System.out.println("Logout from current account first");
