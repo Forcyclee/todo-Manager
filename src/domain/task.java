@@ -15,7 +15,7 @@ public class task {
     private LocalDateTime deadline;
     private LocalDateTime lastUpdated;
 
-    public task(String title, String description, taskPriority priority, String userID) {
+    public task(String title, String description, taskPriority priority, String userID,  LocalDateTime deadline) {
         this.title = title;
         this.description = description;
         this.priority = priority;
@@ -23,12 +23,21 @@ public class task {
         this.status = taskStatus.PENDING;
         this.taskID = UUID.randomUUID().toString();
         this.created = LocalDateTime.now();
+        this.deadline = deadline;
         System.out.println("TaskId: " + this.taskID);
 
     }
 
+    public taskStatus getStatus() {
+        return status;
+    }
+
     public String getUserID() {
         return userID;
+    }
+
+    public taskPriority getPriority() {
+        return priority;
     }
 
     public String getTaskID() {
@@ -43,12 +52,21 @@ public class task {
         this.status = status;
     }
 
-    public void editTask(String title, String description, taskPriority priority, LocalDateTime deadline) {
+    public void editTask(String title, String description, taskPriority priority, LocalDateTime deadline, taskStatus status) {
         this.title = title;
         this.description = description;
         this.priority = priority;
         this.deadline = deadline;
         this.lastUpdated = LocalDateTime.now();
+        this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDateTime getDueDate() {
+        return this.deadline;
     }
 
 

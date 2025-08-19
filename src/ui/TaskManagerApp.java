@@ -63,6 +63,7 @@ public class TaskManagerApp {
 
         taskManager temp = taskManager.getInstance();
         List<task> tasks = temp.getTasks();
+        //String[] taskUUIDs = new String[tasks.size()];
 
         for (task t : tasks) {
             JPanel card = new JPanel();
@@ -78,7 +79,8 @@ public class TaskManagerApp {
 
             JButton editButton = new JButton("Edit");
             editButton.addActionListener(e -> {
-                // new EditTaskApp(t);
+                frame.dispose();
+                 new EditTaskApp(t);
             });
 
             card.add(taskTitle, BorderLayout.CENTER);
